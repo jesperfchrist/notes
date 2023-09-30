@@ -1,5 +1,7 @@
 <script>
 	import { enhance } from '$app/forms';
+
+	export let form;
 </script>
 
 <h1>Sign up!</h1>
@@ -13,3 +15,9 @@
 
 	<button class="px-4 py-2 rounded bg-slate-400">Rein da!</button>
 </form>
+
+{#if form?.message}
+	<p class="text-red-700">
+		{form.message}
+	</p>
+{/if}
