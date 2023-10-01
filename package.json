@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@lucia-auth/adapter-mongoose": "^3.0.0",
 		"lucia": "^2.7.0",
+		"lucide-svelte": "^0.279.0",
 		"mongoose": "^7.5.3"
 	}
 }
