@@ -67,6 +67,7 @@ const Note = mongoose.model(
 			type: String,
 			required: true
 		},
+		tags: [String],
 		user_id: {
 			type: String,
 			required: true
@@ -74,4 +75,5 @@ const Note = mongoose.model(
 	})
 );
 
+export type Note = mongoose.InferSchemaType<typeof Note>;
 export { Session, Key, User, Note };

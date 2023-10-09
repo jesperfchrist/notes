@@ -1,6 +1,8 @@
 # notes
+
 a simple note app
 built with
-- SvelteKit 
+
+- SvelteKit
 - Lucia
 - Mongoose
