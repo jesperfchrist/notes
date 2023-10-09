@@ -11,6 +11,10 @@
 	{/if}
 </nav>
 
-<slot />
+<div class="min-h-screen">
+	<slot />
+</div>
 
-<footer />
+<footer class="text-center my-4 text-sm">
+	this is the footer
+</footer>

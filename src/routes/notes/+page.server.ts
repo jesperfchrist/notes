@@ -1,5 +1,6 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
+import mongoose from "mongoose";
 import { Note } from '$lib/server/schema';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -10,9 +11,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 	let notes = [];
 
 	result.forEach((n) => {
+		const id = n._id.toString();
 		notes.push({
 			text: n.text,
-			tags: n.tags
+			tags: n.tags,
+			id
 		});
 	});
 
@@ -47,6 +50,24 @@ export const actions: Actions = {
 			user_id: session.user.userId
 		});
 
-		newNote.save();
+		try {
+			newNote.save();
+		} catch (error) {
+			return fail(400, {description: error.message})
+		}
+	},
+	delete: async ({request, locals}) => {
+		const session = await locals.auth.validate();
+		if (!session) return fail(401);
+		
+		const formData = await request.formData();
+		const id = formData.get("id");
+		const objId = new mongoose.Types.ObjectId(id)
+
+		try {
+			await Note.findOneAndDelete({_id: objId});
+		} catch (error) {
+			return fail(400, {description: error.message})
+		}
 	}
 };
