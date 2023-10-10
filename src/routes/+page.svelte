@@ -1,9 +1,5 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	export let data;
 </script>
 
 <svelte:head>
@@ -11,14 +7,28 @@
 </svelte:head>
 
 <div class="grid place-items-center">
-	<h1>Profile</h1>
-	<p>Username: {data.username}</p>
+	<h1>Hey {data.username}</h1>
 
-	<form method="post" action="?/logout" use:enhance>
-		<button>Sign out</button>
-	</form>
-
-	<button class="bg-blue-300">
-		<a href="/notes"> > Your notes</a>
+	<button class="bg-blue-300 font-bold">
+		<a href="/notes"> Your notes</a>
 	</button>
+
+	<h2 class="font-bold">Use the GTD system by David Allen</h2>
+
+	<ol class="list-decimal">
+		<li>Capture</li>
+		<li>Clarify</li>
+		<li>Organize</li>
+		<li>Review</li>
+		<li>Engage</li>
+	</ol>
+
+	<h3 class="text-xl font-bold mt-8">Capture</h3>
+
+	<p>
+		Write everything down to safe your thoughts.
+		Then you can reflect on them and define your next steps.
+		Sort them and add tasks to them.
+	</p>
+
 </div>

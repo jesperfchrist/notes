@@ -1,6 +1,6 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 import { Note } from '$lib/server/schema';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -26,20 +26,20 @@ export const actions: Actions = {
 	create: async ({ request, locals }) => {
 		const formData = await request.formData();
 		const text = formData.get('text');
-		const count = formData.get("tag-count");
+		const count = formData.get('tag-count');
 
 		// TODO: add error handling, maybe with zod and svelte-superforms in the future?
 
 		if (text.length < 5) {
-			return fail(400, { description: "the text is too short!"})			
+			return fail(400, { description: 'the text is too short!' });
 		}
 
 		let tags = [];
 
 		for (let i = 0; i < parseInt(count); i++) {
-			tags.push(formData.get("tag" + i))
+			tags.push(formData.get('tag' + i));
 		}
-		
+
 		const session = await locals.auth.validate();
 
 		if (!session) return fail(401);
@@ -53,21 +53,21 @@ export const actions: Actions = {
 		try {
 			newNote.save();
 		} catch (error) {
-			return fail(400, {description: error.message})
+			return fail(400, { description: error.message });
 		}
 	},
-	delete: async ({request, locals}) => {
+	delete: async ({ request, locals }) => {
 		const session = await locals.auth.validate();
 		if (!session) return fail(401);
-		
+
 		const formData = await request.formData();
-		const id = formData.get("id");
-		const objId = new mongoose.Types.ObjectId(id)
+		const id = formData.get('id');
+		const objId = new mongoose.Types.ObjectId(id);
 
 		try {
-			await Note.findOneAndDelete({_id: objId});
+			await Note.findOneAndDelete({ _id: objId });
 		} catch (error) {
-			return fail(400, {description: error.message})
+			return fail(400, { description: error.message });
 		}
 	}
 };
