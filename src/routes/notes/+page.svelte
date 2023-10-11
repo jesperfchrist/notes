@@ -28,23 +28,26 @@
 {/if}
 
 <Collapsible>
-	<div class="grid place-items-center">
+	<div class="flex justify-center space-x-4 flex-col sm:flex-row">
+		<!-- TEXT INPUT -->
 		<form action="?/create" method="post" id="create" use:enhance>
 			<label for="text" class="font-bold text-xl">Text</label> <br />
-			<textarea name="text" id="text" cols="30" rows="10" />
+			<textarea name="text" id="text" cols="30" rows="10" class="my-1" />
 			<br />
 			<button class="my-2">Create new augment</button>
 			<br />
 		</form>
+		<!-- TAGS INPUT -->
 		<div use:melt={$root}>
-			<input use:melt={$input} type="text" />
+			<label class="font-bold text-xl">Tags</label> <br />
+			<input use:melt={$input} type="text" class="my-1" />
 			{#each $tags as t, i}
 				<div
 					use:melt={$tag(t)}
 					class="m-1 text-black inline-block flex items-center justify-between"
 				>
 					<span>{t.value}</span>
-					<span use:melt={$deleteTrigger(t)}>
+					<span use:melt={$deleteTrigger(t)} class="text-red-500 hover:text-red-600">
 						<Trash2 />
 					</span>
 				</div>
@@ -59,7 +62,7 @@
 <div class="sm:w-2/3 mx-auto">
 	<!-- NOTES CONTAINER -->
 	{#each data.notes as note}
-		<a href={"/note/" + note.id}>
+		<a href={'/note/' + note.id}>
 			<div class="bg-blue-200 m-8 px-8 py-4 rounded shadow flex justify-between">
 				<div>
 					<p>
@@ -73,13 +76,6 @@
 						{/each}
 					</div>
 				</div>
-
-				<!-- <form action="?/delete" method="post" use:enhance>
-					<input type="hidden" name="id" value={note.id} />
-					<button>
-						<Trash2 />
-					</button>
-				</form> -->
 			</div>
 		</a>
 	{/each}

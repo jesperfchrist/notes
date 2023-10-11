@@ -40,7 +40,7 @@ export const actions: Actions = {
 			});
 			locals.auth.setSession(session);
 		} catch (e) {
-			// TODO: handle database errors
+			// TODO: handle database errors more gracefully
 			if (e instanceof LuciaError && e.message === 'AUTH_DUPLICATE_KEY_ID') {
 				return fail(400, { message: 'username is already taken' });
 			}

@@ -28,7 +28,7 @@ export const actions: Actions = {
 		const text = formData.get('text');
 		const count = formData.get('tag-count');
 
-		// TODO: add error handling, maybe with zod and svelte-superforms in the future?
+		// TODO: add error handling, maybe with zod and svelte-superforms for better validation?
 
 		if (text.length < 5) {
 			return fail(400, { description: 'the text is too short!' });
@@ -52,20 +52,6 @@ export const actions: Actions = {
 
 		try {
 			newNote.save();
-		} catch (error) {
-			return fail(400, { description: error.message });
-		}
-	},
-	delete: async ({ request, locals }) => {
-		const session = await locals.auth.validate();
-		if (!session) return fail(401);
-
-		const formData = await request.formData();
-		const id = formData.get('id');
-		const objId = new mongoose.Types.ObjectId(id);
-
-		try {
-			await Note.findOneAndDelete({ _id: objId });
 		} catch (error) {
 			return fail(400, { description: error.message });
 		}
