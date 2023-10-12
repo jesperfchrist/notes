@@ -1,5 +1,5 @@
 <script>
-	import { enhance } from '$app/forms';
+	import Dropdown from '$lib/components/Dropdown.svelte';
 	import '../app.postcss';
 
 	export let data;
@@ -10,9 +10,9 @@
 	{#if !data.session}
 		<a href="/login" class="bg-slate-200 rounded">login</a>
 	{:else}
-		<form method="post" action="?/logout" use:enhance>
-			<button>Sign out</button>
-		</form>
+	<div>
+		<Dropdown />
+	</div>
 	{/if}
 </nav>
 
@@ -20,4 +20,8 @@
 	<slot />
 </div>
 
-<footer class="text-center my-4 text-sm">this is the footer</footer>
+<footer class="text-center my-4 text-sm">
+	<p>
+		this is the footer
+	</p>
+</footer>

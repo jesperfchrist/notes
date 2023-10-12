@@ -1,10 +1,16 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+
 	export let data;
 </script>
 
 <svelte:head>
 	<title>A simple sveltekit notes app</title>
 </svelte:head>
+
+<!-- TODO maybe move loading the notes into here or layout and attach to context in a store -->
+<!-- thus reducing network traffick and only syncing to db when necessary -->
+<!-- but when is it necessary to fetch and sync? -->
 
 <div class="grid place-items-center">
 	<h1>Hey {data.username}</h1>
@@ -16,7 +22,6 @@
 	<button class="bg-blue-500 hover:bg-blue-700 font-bold">
 		<a href="/tags"> Your tags</a>
 	</button>
-
 
 	<h2 class="font-bold">Use the GTD system by David Allen</h2>
 
@@ -56,4 +61,8 @@
 		<li>calendar</li>
 		<li>wating for</li>
 	</ol>
+
+	<form method="post" action="?/logout" use:enhance>
+		<button>Sign out</button>
+	</form>
 </div>

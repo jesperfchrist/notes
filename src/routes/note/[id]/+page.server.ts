@@ -19,6 +19,8 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	if (!note) throw redirect(302, '/notes');
 
+	console.log(note);
+
 	return {
 		note: {
 			text: note.text,
@@ -39,6 +41,25 @@ export const actions: Actions = {
 
 		try {
 			const note = await Note.findOneAndDelete({ _id: objId });
+		} catch (error) {
+			return fail(400, { description: error.message });
+		}
+	},
+	addToList: async ({ request, locals }) => {
+		const session = await locals.auth.validate();
+		if (!session) return fail(401);
+
+		const formData = await request.formData();
+		const id = formData.get('id');
+		const objId = new mongoose.Types.ObjectId(id);
+		const list = formData.get("list");
+
+		const filter = { _id: objId };
+		const update = { $set: { list: list }};
+
+		try {
+			const note = await Note.findOneAndUpdate(filter, update, { new: true });
+			console.log(note);
 		} catch (error) {
 			return fail(400, { description: error.message });
 		}

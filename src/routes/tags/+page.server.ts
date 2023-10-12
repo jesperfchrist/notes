@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
-import { Note } from "$lib/server/schema";
-import { redirect } from "@sveltejs/kit";
+import { Note } from '$lib/server/schema';
+import { redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();

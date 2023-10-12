@@ -1,9 +1,16 @@
 <script lang="ts">
+	export let data: PageData;
+
 	import type { PageData } from './$types';
+	import { createSelect, melt } from '@melt-ui/svelte';
 	import { Trash2 } from 'lucide-svelte';
 	import { enhance } from '$app/forms';
 
-	export let data: PageData;
+	const {
+    elements: { trigger, menu, option, group, groupLabel, label },
+    states: { selectedLabel, open },
+    helpers: { isSelected },
+  } = createSelect();
 </script>
 
 <div class="sm:w-2/3 mx-auto flex justify-between">
@@ -19,6 +26,22 @@
 				</span>
 			{/each}
 		</div>
+
+		<form action="?/addToList" method="post" use:enhance>
+			<input type="radio" name="list" id="action" value="action">
+			<label for="action">action</label>
+			<br>
+			<input type="radio" name="list" id="project" value="project">
+			<label for="project">project</label>
+			<br>
+			<input type="radio" name="list" id="calendar" value="calendar">
+			<label for="calendar">calendar</label>
+			<br>
+			<input type="radio" name="list" id="waiting" value="waiting">
+			<label for="waiting">waiting</label>
+			<br>
+			<button type="submit" class="bg-blue-500 hover:bg-blue-700">add to list</button>
+		</form>
 	</div>
 
 	<form action="?/delete" method="post" use:enhance>

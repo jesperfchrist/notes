@@ -60,6 +60,7 @@ const Session = mongoose.model(
 	)
 );
 
+// TODO  list types: "action" || "project" || "calendar" || "waiting"
 const Note = mongoose.model(
 	'Note',
 	new mongoose.Schema({
@@ -68,6 +69,7 @@ const Note = mongoose.model(
 			required: true
 		},
 		tags: [String],
+		list:  String,
 		user_id: {
 			type: String,
 			required: true

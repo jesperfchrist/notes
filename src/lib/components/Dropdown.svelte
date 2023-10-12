@@ -18,11 +18,11 @@
 </button>
 <div
 	use:melt={$menu}
-	class="bg-slate-500 p-2 text-white"
+	class="bg-slate-500 p-4 rounded text-lg text-white"
 	transition:fly={{ duration: 1500, y: -10 }}
 >
-	<div use:melt={$item}>Item 1</div>
-	<div use:melt={$item}>Item 2</div>
-	<div use:melt={$item}>Item 3</div>
+	<div use:melt={$item}><a href="/notes">Notes</a></div>
+	<div use:melt={$item}><a href="/tags">Tags</a></div>
+	<div use:melt={$item}><a href="/lists">Lists</a></div>
 	<div use:melt={$arrow} />
 </div>
