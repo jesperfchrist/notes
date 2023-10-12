@@ -16,7 +16,7 @@
 	{/if}
 </nav>
 
-<div class="min-h-screen">
+<div class="min-h-screen mx-4">
 	<slot />
 </div>
 

@@ -6,7 +6,17 @@ declare global {
 		interface Locals {
 			auth: import('lucia').AuthRequest;
 		}
-		// interface PageData {}
+		interface PageData {
+			notes: [
+				{
+					text: string;
+					tags?: string[];
+					list?: string;
+					user_id: string;
+					id: string;
+				}
+			];
+		}
 		// interface Platform {}
 	}
 }

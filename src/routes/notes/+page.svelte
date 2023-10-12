@@ -6,6 +6,7 @@
 	import Collapsible from '$lib/components/Collapsible.svelte';
 	import { Trash2 } from 'lucide-svelte';
 	import { createTagsInput, melt } from '@melt-ui/svelte';
+	import Note from '$lib/components/Note.svelte';
 
 	const {
 		elements: { root, input, tag, deleteTrigger, edit },
@@ -61,22 +62,7 @@
 
 <div class="sm:w-2/3 mx-auto">
 	<!-- NOTES CONTAINER -->
-	{#each data.notes as note}
-		<a href={'/note/' + note.id}>
-			<div class="bg-blue-200 m-8 px-8 py-4 rounded shadow flex justify-between">
-				<div>
-					<p>
-						{note.text}
-					</p>
-					<div class="my-2">
-						{#each note.tags as t}
-							<span class="text-sm mx-1 border rounded p-1 bg-slate-100">
-								{t}
-							</span>
-						{/each}
-					</div>
-				</div>
-			</div>
-		</a>
+	{#each data.notes as { text, tags, id }}
+		<Note {text} {tags} {id} />
 	{/each}
 </div>

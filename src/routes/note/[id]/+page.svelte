@@ -20,13 +20,13 @@
 			{/each}
 		</div>
 
-
+		<!-- TODO add GTD workflow for guidance on how to categorize your incompletes/stuff/notes/augments -->
 
 		{#if data.note.list}
 			{data.note.list}
 		{:else}
 			<form action="?/addToList" method="post" use:enhance>
-				<input type="hidden" name="id" value={data.note.id}>
+				<input type="hidden" name="id" value={data.note.id} />
 				<input type="radio" name="list" id="action" value="action" />
 				<label for="action">action</label>
 				<br />
@@ -51,5 +51,3 @@
 		</button>
 	</form>
 </div>
-
-<!-- TODO add possibiliy to categorize augments into lists -->

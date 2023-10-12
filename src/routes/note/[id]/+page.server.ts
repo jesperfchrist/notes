@@ -24,9 +24,9 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		tags: document.tags,
 		list: document.list,
 		id: document._id.toString()
-	}
+	};
 
-	return {		
+	return {
 		note
 	};
 };
@@ -39,7 +39,7 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const id = formData.get('id');
 		const objId = new mongoose.Types.ObjectId(id);
-		
+
 		try {
 			const note = await Note.findOneAndDelete({ _id: objId });
 		} catch (error) {

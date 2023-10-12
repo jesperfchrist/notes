@@ -12,6 +12,9 @@
 <!-- thus reducing network traffick and only syncing to db when necessary -->
 <!-- but when is it necessary to fetch and sync? -->
 
+<!-- TODO refactor this, and create unified wording -->
+<!-- maybe add cms or data filing system -->
+
 <div class="grid place-items-center">
 	<h1>Hey {data.username}</h1>
 
@@ -21,6 +24,10 @@
 
 	<button class="bg-blue-500 hover:bg-blue-700 font-bold">
 		<a href="/tags"> Your tags</a>
+	</button>
+
+	<button class="bg-green-600 hover:bg-green-700 font-bold">
+		<a href="/docs">Read the Docs</a>
 	</button>
 
 	<h2 class="font-bold">Use the GTD system by David Allen</h2>

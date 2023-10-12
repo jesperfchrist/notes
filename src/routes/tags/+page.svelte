@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Note from '$lib/components/Note.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -22,14 +23,8 @@
 			{tag}
 		</h1>
 
-		{#each data.notes.filter((note) => note.tags.includes(tag)) as note}
-			<a href={'/note/' + note.id}>
-				<div class="bg-blue-200 m-8 px-8 py-4 rounded shadow flex justify-between">
-					<p>
-						{note.text}
-					</p>
-				</div>
-			</a>
+		{#each data.notes.filter((note) => note.tags.includes(tag)) as { text, tags, id }}
+			<Note {text} {tags} {id} />
 		{/each}
 	{/each}
 </div>

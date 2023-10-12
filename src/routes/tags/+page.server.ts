@@ -6,14 +6,14 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (!session) throw redirect(302, '/');
 
-	const result = await Note.find({ user_id: session.user.userId });
+	const documents = await Note.find({ user_id: session.user.userId });
 	let notes = [];
 
-	result.forEach((n) => {
-		const id = n._id.toString();
+	documents.forEach(({ text, tags, _id }) => {
+		const id = _id.toString();
 		notes.push({
-			text: n.text,
-			tags: n.tags,
+			text,
+			tags,
 			id
 		});
 	});
