@@ -4,17 +4,12 @@
 	export let data: PageData;
 
 	let tags: string[] = [];
-	
-	data.notes.forEach((
-		note: {
-			text: string,
-			tags: string[],
-			id: string
-		}) => {
+
+	data.notes.forEach((note: { text: string; tags: string[]; id: string }) => {
 		note.tags.forEach((tag) => {
 			if (!tags.includes(tag)) {
-				tags.push(tag); 
-			} 
+				tags.push(tag);
+			}
 		});
 	});
 
@@ -27,12 +22,12 @@
 			{tag}
 		</h1>
 
-		{#each data.notes.filter(note => note.tags.includes(tag)) as note}
+		{#each data.notes.filter((note) => note.tags.includes(tag)) as note}
 			<a href={'/note/' + note.id}>
 				<div class="bg-blue-200 m-8 px-8 py-4 rounded shadow flex justify-between">
-						<p>
-							{note.text}
-						</p>
+					<p>
+						{note.text}
+					</p>
 				</div>
 			</a>
 		{/each}

@@ -69,7 +69,7 @@ const Note = mongoose.model(
 			required: true
 		},
 		tags: [String],
-		list:  String,
+		list: String,
 		user_id: {
 			type: String,
 			required: true

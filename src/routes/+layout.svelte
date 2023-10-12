@@ -10,9 +10,9 @@
 	{#if !data.session}
 		<a href="/login" class="bg-slate-200 rounded">login</a>
 	{:else}
-	<div>
-		<Dropdown />
-	</div>
+		<div>
+			<Dropdown />
+		</div>
 	{/if}
 </nav>
 
@@ -21,7 +21,5 @@
 </div>
 
 <footer class="text-center my-4 text-sm">
-	<p>
-		this is the footer
-	</p>
+	<p>this is the footer</p>
 </footer>

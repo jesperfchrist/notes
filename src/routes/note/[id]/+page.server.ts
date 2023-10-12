@@ -9,24 +9,25 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	const noteId = new mongoose.Types.ObjectId(params.id);
 
-	let note;
+	let document;
 
 	try {
-		note = await Note.findOne({ user_id: session.user.userId, _id: noteId });
+		document = await Note.findOne({ user_id: session.user.userId, _id: noteId });
 	} catch (error) {
 		return fail(400, { description: error.message });
 	}
 
-	if (!note) throw redirect(302, '/notes');
+	if (!document) throw redirect(302, '/notes');
 
-	console.log(note);
+	const note = {
+		text: document.text,
+		tags: document.tags,
+		list: document.list,
+		id: document._id.toString()
+	}
 
-	return {
-		note: {
-			text: note.text,
-			tags: note.tags,
-			id: note._id.toString()
-		}
+	return {		
+		note
 	};
 };
 
@@ -38,7 +39,7 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const id = formData.get('id');
 		const objId = new mongoose.Types.ObjectId(id);
-
+		
 		try {
 			const note = await Note.findOneAndDelete({ _id: objId });
 		} catch (error) {
@@ -52,14 +53,14 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const id = formData.get('id');
 		const objId = new mongoose.Types.ObjectId(id);
-		const list = formData.get("list");
+		const list = formData.get('list');
 
 		const filter = { _id: objId };
-		const update = { $set: { list: list }};
+		const update = { list: list };
+		const options = { new: true };
 
 		try {
-			const note = await Note.findOneAndUpdate(filter, update, { new: true });
-			console.log(note);
+			const note = await Note.findOneAndUpdate(filter, update, options);
 		} catch (error) {
 			return fail(400, { description: error.message });
 		}
