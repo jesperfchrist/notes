@@ -60,7 +60,7 @@ const Session = mongoose.model(
 	)
 );
 
-// TODO  list types: "action" || "project" || "calendar" || "waiting"
+// TODO extend types depending on list, define relations
 const Note = mongoose.model(
 	'Note',
 	new mongoose.Schema({
@@ -70,6 +70,7 @@ const Note = mongoose.model(
 		},
 		tags: [String],
 		list: String,
+		actions: [String],
 		user_id: {
 			type: String,
 			required: true
@@ -77,5 +78,32 @@ const Note = mongoose.model(
 	})
 );
 
+// TODO add relations to augments/notes and steps
+const Project = mongoose.model(
+	'Project',
+	new mongoose.Schema({
+		id: String,
+		description: String,
+		notes: [String]
+	})
+);
+
+// TODO add steps to schema
+const Action = mongoose.model(
+	'Action',
+	new mongoose.Schema({
+		id: String,
+		description: String,
+		dueDate: Date,
+		steps: [
+			{
+				done: String,
+				achievementDescription: String
+			}
+		],
+		note_id: String
+	})
+);
+
 export type Note = mongoose.InferSchemaType<typeof Note>;
-export { Session, Key, User, Note };
+export { Session, Key, User, Note, Action, Project };

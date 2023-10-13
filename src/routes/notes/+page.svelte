@@ -28,7 +28,7 @@
 	</p>
 {/if}
 
-<Collapsible>
+<Collapsible heading="Create augment">
 	<div class="flex justify-center space-x-4 flex-col sm:flex-row">
 		<!-- TEXT INPUT -->
 		<form action="?/create" method="post" id="create" use:enhance>

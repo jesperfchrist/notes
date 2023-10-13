@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { redirect, type Actions, fail } from '@sveltejs/kit';
-import { Note } from '$lib/server/schema';
+import { Action, Note } from '$lib/server/schema';
 import mongoose from 'mongoose';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
@@ -19,6 +19,31 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	if (!document) throw redirect(302, '/notes');
 
+	const filter = { note_id: noteId }
+	const documents = await Action.find(filter);
+	let actions = [];
+	
+	if (documents) {
+		documents.forEach(({ _id, description, dueDate, steps }) => {
+      let newSteps = [];
+
+      steps.forEach(s=> {
+        newSteps.push({
+          done: s.done,
+          achievementDescription: s.achievementDescription,
+          id: s._id.toString(),
+        }) 
+      });
+
+			actions.push({
+				id: _id.toString(),
+				description,
+				steps: newSteps, 
+				dueDate,
+			})
+		});
+	}
+
 	const note = {
 		text: document.text,
 		tags: document.tags,
@@ -27,15 +52,13 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	};
 
 	return {
-		note
+		note,
+		actions
 	};
 };
 
 export const actions: Actions = {
-	delete: async ({ request, locals }) => {
-		const session = await locals.auth.validate();
-		if (!session) return fail(401);
-
+	delete: async ({ request }) => {
 		const formData = await request.formData();
 		const id = formData.get('id');
 		const objId = new mongoose.Types.ObjectId(id);
@@ -46,10 +69,7 @@ export const actions: Actions = {
 			return fail(400, { description: error.message });
 		}
 	},
-	addToList: async ({ request, locals }) => {
-		const session = await locals.auth.validate();
-		if (!session) return fail(401);
-
+	addToList: async ({ request }) => {
 		const formData = await request.formData();
 		const id = formData.get('id');
 		const objId = new mongoose.Types.ObjectId(id);
@@ -64,5 +84,60 @@ export const actions: Actions = {
 		} catch (error) {
 			return fail(400, { description: error.message });
 		}
+	},
+	createAction: async ({ request, params }) => {
+		const formData = await request.formData();
+		const description = formData.get("description");
+		const dueDate = formData.get("dueDate");
+		const achievementDescription = formData.get("achievementDescription")
+		const note_id = new mongoose.Types.ObjectId(params.id);
+
+		const action = new Action({
+			description,
+			dueDate,
+			steps: [{
+				done: false,
+				achievementDescription,
+			}],
+			note_id
+		})
+
+		let newAction;
+		try {
+			newAction = await action.save();
+		} catch (error) {
+
+		}
+
+		const filter = { _id: note_id };
+		const update = { $push: { actions: newAction._id } }
+
+		try {
+			// const result = Note.findOneAndUpdate(filter, update)
+		} catch (error) {
+      return fail(400, { description: error.message})
+		}
+	},
+	createStep: async ({ request, params }) => {
+		const formData = await request.formData();
+    const step = formData.get("step");
+    const action_id = new mongoose.Types.ObjectId(formData.get("id")
+)  
+    const filter = { _id: action_id };
+    const update = { 
+    $push: { 
+      steps: {
+        achievementDescription: step,
+        done: false
+        }
+      }
+    }
+    
+    try {
+      const result = await Action.findOneAndUpdate(filter, update, {new: true})
+    } catch (error) {
+       
+    }
+    // TODO: add create step action
 	}
 };

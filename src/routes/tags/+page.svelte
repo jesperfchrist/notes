@@ -13,8 +13,6 @@
 			}
 		});
 	});
-
-	console.table(tags);
 </script>
 
 <div class="w-2/3 mx-auto">

@@ -3,6 +3,8 @@
 	import { ChevronsDown, ChevronsUp } from 'lucide-svelte';
 	import { slide } from 'svelte/transition';
 
+	export let heading: string;
+
 	const {
 		elements: { root, content, trigger },
 		states: { open }
@@ -13,7 +15,7 @@
 
 <div use:melt={$root} class="pb-6">
 	<div class="flex justify-around items-center">
-		<h1>Create new augments</h1>
+		<h1>{heading}</h1>
 		<button use:melt={$trigger} class="btn">
 			{#if $open}
 				<ChevronsUp />
