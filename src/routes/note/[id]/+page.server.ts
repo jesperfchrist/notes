@@ -19,28 +19,28 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	if (!document) throw redirect(302, '/notes');
 
-	const filter = { note_id: noteId }
+	const filter = { note_id: noteId };
 	const documents = await Action.find(filter);
 	let actions = [];
-	
+
 	if (documents) {
 		documents.forEach(({ _id, description, dueDate, steps }) => {
-      let newSteps = [];
+			let newSteps = [];
 
-      steps.forEach(s=> {
-        newSteps.push({
-          done: s.done,
-          achievementDescription: s.achievementDescription,
-          id: s._id.toString(),
-        }) 
-      });
+			steps.forEach((s) => {
+				newSteps.push({
+					done: s.done == 'true' ? true : false,
+					achievementDescription: s.achievementDescription,
+					id: s._id.toString()
+				});
+			});
 
 			actions.push({
 				id: _id.toString(),
 				description,
-				steps: newSteps, 
-				dueDate,
-			})
+				steps: newSteps,
+				dueDate
+			});
 		});
 	}
 
@@ -87,57 +87,65 @@ export const actions: Actions = {
 	},
 	createAction: async ({ request, params }) => {
 		const formData = await request.formData();
-		const description = formData.get("description");
-		const dueDate = formData.get("dueDate");
-		const achievementDescription = formData.get("achievementDescription")
+		const description = formData.get('description');
+		const dueDate = formData.get('dueDate');
+		const achievementDescription = formData.get('achievementDescription');
 		const note_id = new mongoose.Types.ObjectId(params.id);
 
 		const action = new Action({
 			description,
 			dueDate,
-			steps: [{
-				done: false,
-				achievementDescription,
-			}],
+			steps: [
+				{
+					done: false,
+					achievementDescription
+				}
+			],
 			note_id
-		})
+		});
 
 		let newAction;
 		try {
 			newAction = await action.save();
-		} catch (error) {
-
-		}
+		} catch (error) {}
 
 		const filter = { _id: note_id };
-		const update = { $push: { actions: newAction._id } }
+		const update = { $push: { actions: newAction._id } };
 
 		try {
 			// const result = Note.findOneAndUpdate(filter, update)
 		} catch (error) {
-      return fail(400, { description: error.message})
+			return fail(400, { description: error.message });
 		}
 	},
 	createStep: async ({ request, params }) => {
 		const formData = await request.formData();
-    const step = formData.get("step");
-    const action_id = new mongoose.Types.ObjectId(formData.get("id")
-)  
-    const filter = { _id: action_id };
-    const update = { 
-    $push: { 
-      steps: {
-        achievementDescription: step,
-        done: false
-        }
-      }
-    }
-    
-    try {
-      const result = await Action.findOneAndUpdate(filter, update, {new: true})
-    } catch (error) {
-       
-    }
-    // TODO: add create step action
+		const step = formData.get('step');
+		const action_id = new mongoose.Types.ObjectId(formData.get('id'));
+		const filter = { _id: action_id };
+		const update = {
+			$push: {
+				steps: {
+					achievementDescription: step,
+					done: false
+				}
+			}
+		};
+
+		try catch (error) {
+			return fail(400, { description: error.message });
+		}
+	},
+	deleteStep: async ({ request }) => {
+		const formData = await request.formData();
+		const step_id = formData.get('id');
+
+		const filter = { _id: new mongoose.Types.ObjectId(step_id) }
+		try {
+			const result = await Action.steps.pull(filter);
+			console.log(result);
+		} catch (error) {
+			return fail(400, { description: error.message });
+		}
 	}
 };

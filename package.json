@@ -37,9 +37,15 @@
 	"type": "module",
 	"dependencies": {
 		"@lucia-auth/adapter-mongoose": "^3.0.0",
+		"clsx": "^2.0.0",
+		"formsnap": "^0.2.0",
 		"lucia": "^2.7.0",
 		"lucide-svelte": "^0.279.0",
 		"mermaid": "^10.5.0",
-		"mongoose": "^7.5.3"
+		"mongoose": "^7.5.3",
+		"sveltekit-superforms": "^1.8.0",
+		"tailwind-merge": "^1.14.0",
+		"tailwind-variants": "^0.1.14",
+		"zod": "^3.22.4"
 	}
 }

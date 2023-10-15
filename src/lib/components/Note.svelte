@@ -7,14 +7,14 @@
 <!-- TODO figure out how to implement this with actions/forms working -->
 
 <a href={'/note/' + id}>
-	<div class="bg-blue-200 m-8 px-8 py-4 rounded shadow flex justify-between">
+	<div class="bg-green-900 text-white m-8 px-8 py-4 rounded shadow flex justify-between">
 		<div>
 			<p>
 				{text}
 			</p>
 			<div class="my-2">
 				{#each tags as t}
-					<span class="text-sm mx-1 border rounded p-1 bg-slate-100">
+					<span class="text-sm mx-1 rounded p-1 bg-green-500 text-black">
 						{t}
 					</span>
 				{/each}

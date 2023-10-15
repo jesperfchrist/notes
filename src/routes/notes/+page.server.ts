@@ -32,7 +32,7 @@ export const actions: Actions = {
 		const text = formData.get('text');
 		const count = formData.get('tag-count');
 
-		// TODO: add error handling, maybe with zod and svelte-superforms for better validation?
+		// TODO: refactor w/ shadcn svelte for zod sveltekit superforms intergration
 
 		if (text.length < 5) {
 			return fail(400, { description: 'the text is too short!' });

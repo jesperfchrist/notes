@@ -16,14 +16,13 @@
 
 		<div class="my-4">
 			{#each data.note.tags as t}
-				<span class="rounded m-1 px-2 py-1 bg-slate-100">
+				<span class="rounded m-1 px-2 py-1 bg-slate-600">
 					{t}
 				</span>
 			{/each}
 		</div>
 
 		<!-- TODO add GTD workflow for guidance on how to categorize your incompletes/stuff/notes/augments -->
-		<!-- TODO add possibility to assign to lists (projects) -->
 		{#if data.note.list}
 			{#if data.note.list === 'action'}
 				<h3>Actions</h3>
@@ -33,11 +32,18 @@
 							<div>
 								{#if action.steps}
 									{#each action.steps as s}
-                    <div
-										<input type="checkbox" value={s.done == 'false' ? false : true} />
-                    <p>
-										  {s.achievementDescription}
-                    </p>
+										<div class="flex justify-around inline-block w-2/3">
+											<input type="checkbox" id={s.id} bind:checked={s.done} />
+											<span class={s.done ? 'line-through' : ''}>
+												{s.achievementDescription}
+											</span>
+											<form action="?/deleteStep" method="post">
+												<input type="hidden" name="id" value={s.id} />
+												<button type="submit">
+													<Trash class="text-white h-4 w-4" />
+												</button>
+											</form>
+										</div>
 									{/each}
 								{/if}
 								<form action="?/createStep" method="post">
@@ -48,14 +54,14 @@
 											name="step"
 											placeholder="add new step..."
 										/>
-                    <input type="hidden" value={action.id} name="id"/>
+										<input type="hidden" value={action.id} name="id" />
 										<button type="submit">
 											<Plus class="text-white h-4 w-4" />
 										</button>
 									</div>
 								</form>
 								<form action="?/deleteAction" method="post">
-                  <input type="hidden" value={action.id} />
+									<input type="hidden" value={action.id} />
 									<button type="button" class="bg-red-500 hover:bg-red-700">
 										<Trash class="w-4 h-4" />
 									</button>
