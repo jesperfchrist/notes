@@ -9,11 +9,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const documents = await Note.find({ user_id: session.user.userId });
 	let notes = [];
 
-	documents.forEach(({ text, tags, _id }) => {
+	documents.forEach(({ text, tags, list, _id }) => {
 		const id = _id.toString();
 		notes.push({
 			text,
 			tags,
+      list,
 			id
 		});
 	});

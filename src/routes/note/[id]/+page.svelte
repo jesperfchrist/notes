@@ -31,15 +31,18 @@
 						<Action dueDate={action.dueDate} description={action.description} id={action.id}>
 							<div>
 								{#if action.steps}
+                  <!-- STEPS -->
 									{#each action.steps as s}
+                    <!-- STEP -->
 										<div class="flex justify-around inline-block w-2/3">
 											<input type="checkbox" id={s.id} bind:checked={s.done} />
 											<span class={s.done ? 'line-through' : ''}>
 												{s.achievementDescription}
 											</span>
 											<form action="?/deleteStep" method="post">
-												<input type="hidden" name="id" value={s.id} />
-												<button type="submit">
+												<input type="hidden" name="step_id" value={s.id} />
+										<input type="hidden" value={action.id} name="action_id" />
+												<button type="submit" class="hover:bg-red-500">
 													<Trash class="text-white h-4 w-4" />
 												</button>
 											</form>

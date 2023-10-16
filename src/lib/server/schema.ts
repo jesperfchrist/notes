@@ -82,7 +82,6 @@ const Note = mongoose.model(
 const Project = mongoose.model(
 	'Project',
 	new mongoose.Schema({
-		id: String,
 		description: String,
 		notes: [String]
 	})
@@ -92,7 +91,6 @@ const Project = mongoose.model(
 const Action = mongoose.model(
 	'Action',
 	new mongoose.Schema({
-		id: String,
 		description: String,
 		dueDate: Date,
 		steps: [

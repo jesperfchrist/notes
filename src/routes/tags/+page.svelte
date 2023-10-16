@@ -21,8 +21,8 @@
 			{tag}
 		</h1>
 
-		{#each data.notes.filter((note) => note.tags.includes(tag)) as { text, tags, id }}
-			<Note {text} {tags} {id} />
+		{#each data.notes.filter((note) => note.tags.includes(tag)) as { text, tags, id, list }}
+			<Note {text} {tags} {id} {list} />
 		{/each}
 	{/each}
 </div>

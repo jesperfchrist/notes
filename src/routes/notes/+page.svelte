@@ -62,7 +62,7 @@
 
 <div class="sm:w-2/3 mx-auto">
 	<!-- NOTES CONTAINER -->
-	{#each data.notes as { text, tags, id }}
-		<Note {text} {tags} {id} />
+	{#each data.notes as { text, tags, list, id }}
+		<Note {text} {tags} {id} {list} />
 	{/each}
 </div>

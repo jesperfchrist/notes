@@ -132,18 +132,32 @@ export const actions: Actions = {
 			}
 		};
 
-		try catch (error) {
+		try {
+      const result = await Action.findOneAndUpdate(filter, update, { new: true })
+    }
+    catch (error) {
 			return fail(400, { description: error.message });
 		}
 	},
 	deleteStep: async ({ request }) => {
 		const formData = await request.formData();
-		const step_id = formData.get('id');
+		const action_id = formData.get('action_id');
+    const action_obj_id = new mongoose.Types.ObjectId(action_id);
+    const step_id = formData.get("step_id");
+    const step_obj_id = new mongoose.Types.ObjectId(step_id);
 
-		const filter = { _id: new mongoose.Types.ObjectId(step_id) }
-		try {
-			const result = await Action.steps.pull(filter);
-			console.log(result);
+		const filter = { _id: action_obj_id }
+    const update = {
+      $pull: {
+        steps: {
+          _id: step_obj_id, 
+        }
+      }
+    }
+    
+  	try {
+      const result = await Action.findOneAndUpdate(filter, update);
+      console.log("Delete action saying hello!");
 		} catch (error) {
 			return fail(400, { description: error.message });
 		}

@@ -14,11 +14,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	let notes = [];
 
-	documents.forEach(({ _id, text, tags }) => {
+	documents.forEach(({ _id, text, tags, list }) => {
 		const id = _id.toString();
 		notes.push({
 			text,
 			tags,
+      list,
 			id
 		});
 	});
