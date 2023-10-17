@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		notes.push({
 			text,
 			tags,
-      list,
+			list,
 			id
 		});
 	});

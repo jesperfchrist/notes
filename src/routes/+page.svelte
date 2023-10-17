@@ -14,26 +14,26 @@
 	<title>A simple sveltekit notes app</title>
 </svelte:head>
 
-<!-- TODO maybe move loading the notes into here or layout and attach to context in a store -->
+<!-- TODO:refactor maybe move loading the notes into here or layout and attach to context in a store -->
 <!-- thus reducing network traffick and only syncing to db when necessary -->
 <!-- but when is it necessary to fetch and sync? -->
 
-<!-- TODO refactor this, and create unified wording -->
+<!-- TODO:refactor this, and create unified wording -->
 <!-- maybe add cms or data filing system -->
 
 <div class="w-2/3 mx-auto">
 	<h1>Hey {data.username}</h1>
 
-	<button class="bg-blue-500 hover:bg-blue-700 font-bold">
+	<button class="bg-green-600 hover:bg-green-700 font-bold">
 		<a href="/notes"> Your notes</a>
 	</button>
 
 	<button class="bg-blue-500 hover:bg-blue-700 font-bold">
-		<a href="/tags"> Your tags</a>
+		<a href="/tags">Tags</a>
 	</button>
 
-	<button class="bg-green-600 hover:bg-green-700 font-bold">
-		<a href="/docs">Read the Docs</a>
+	<button class="bg-blue-500 hover:bg-blue-700 font-bold">
+		<a href="/lists">Lists</a>
 	</button>
 
 	<h1>AUGMENTS</h1>

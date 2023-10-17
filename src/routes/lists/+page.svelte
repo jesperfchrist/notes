@@ -8,7 +8,7 @@
 </script>
 
 {#each lists as list}
-	<h1>{list}</h1>
+	<h1 class="uppercase">{list}</h1>
 	{#each data.notes.filter((note) => note.list === list) as { text, tags, id }}
 		<Note {text} {tags} {id} {list} />
 	{/each}

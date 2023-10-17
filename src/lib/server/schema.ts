@@ -60,7 +60,6 @@ const Session = mongoose.model(
 	)
 );
 
-// TODO extend types depending on list, define relations
 const Note = mongoose.model(
 	'Note',
 	new mongoose.Schema({
@@ -78,7 +77,7 @@ const Note = mongoose.model(
 	})
 );
 
-// TODO add relations to augments/notes and steps
+// TODO:add relations to augments/notes and steps
 const Project = mongoose.model(
 	'Project',
 	new mongoose.Schema({
@@ -87,7 +86,7 @@ const Project = mongoose.model(
 	})
 );
 
-// TODO add steps to schema
+// TODO:add steps to schema
 const Action = mongoose.model(
 	'Action',
 	new mongoose.Schema({

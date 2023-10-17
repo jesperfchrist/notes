@@ -17,7 +17,7 @@
 
 <div class="w-2/3 mx-auto">
 	{#each tags as tag}
-		<h1>
+		<h1 class="uppercase">
 			{tag}
 		</h1>
 
