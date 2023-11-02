@@ -13,7 +13,6 @@
 <div class="sm:w-2/3 mx-auto flex justify-between">
 	<div>
     <Note id={data.note.id} text={data.note.text} tags={data.note.tags} list={data.note.list} />
-		<!-- TODO:add GTD workflow for guidance on how to categorize your incompletes/stuff/notes/augments -->
 		{#if data.note.list}
 			{#if data.note.list === 'action'}
 				<h3>Actions</h3>
@@ -67,7 +66,7 @@
 					{/each}
 				{/if}
 
-				<!-- TODO:fixme bug on first action to add -->
+        <!-- TODO:refactor for wording-->
 				<Collapsible heading="add actions">
 					<form action="?/createAction" method="post" class="container mx-2" use:enhance>
 						<label for="description">Description</label> <br />

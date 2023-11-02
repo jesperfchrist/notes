@@ -6,8 +6,6 @@
 	export let list: string;
 </script>
 
-<!-- TODO:add figure out how to implement this with actions/forms working -->
-
 <a href={'/note/' + id}>
 	<div class="bg-green-900 text-white m-8 px-8 py-4 rounded shadow flex justify-between">
 		<div class="mr-4">

@@ -1,5 +1,6 @@
 <script>
 	import Dropdown from '$lib/components/Dropdown.svelte';
+	import { fade, fly } from 'svelte/transition';
 	import '../app.postcss';
 
 	export let data;

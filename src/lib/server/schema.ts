@@ -86,7 +86,7 @@ const Project = mongoose.model(
 	})
 );
 
-// TODO:add steps to schema
+// TODO:refactor this to better field naming 
 const Action = mongoose.model(
 	'Action',
 	new mongoose.Schema({
@@ -95,7 +95,7 @@ const Action = mongoose.model(
 		steps: [
 			{
 				done: String,
-				achievementDescription: String
+				achievementDescription: String 
 			}
 		],
 		note_id: String

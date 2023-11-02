@@ -23,6 +23,8 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	const documents = await Action.find(action_filter);
 	let actions = [];
 
+	// TODO:refactor this to new list types
+	// TODO:refactor this to create unified types across FE
 	if (documents) {
 		documents.forEach(({ _id, description, dueDate, steps }) => {
 			let newSteps = [];

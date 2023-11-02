@@ -89,7 +89,7 @@
 
 	<ol class="list-decimal mx-6 my-2">
 		<li>Capture</li>
-		<li>Clarify</li>
+		<li>Clarify</li> 
 		<li>Organize</li>
 		<li>Reflect</li>
 		<li>Engange</li>

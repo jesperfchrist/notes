@@ -33,8 +33,7 @@ export const actions: Actions = {
 		const text = formData.get('text');
 		const count = formData.get('tag-count');
 
-		// TODO: refactor w/ shadcn svelte for zod sveltekit superforms intergration
-
+		// TODO: refactor w/ zod & sveltekit superforms 
 		if (text.length < 5) {
 			return fail(400, { description: 'the text is too short!' });
 		}
